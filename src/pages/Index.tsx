@@ -5,20 +5,15 @@ import { ShoppingCart, Users, MapPin, DollarSign, TrendingUp, Shield } from "luc
 import { useState } from "react";
 import VendorRegistration from "@/components/VendorRegistration";
 import SupplierDirectory from "@/components/SupplierDirectory";
-
 const Index = () => {
   const [currentView, setCurrentView] = useState<'home' | 'register' | 'suppliers'>('home');
-
   if (currentView === 'register') {
     return <VendorRegistration onBack={() => setCurrentView('home')} />;
   }
-
   if (currentView === 'suppliers') {
     return <SupplierDirectory onBack={() => setCurrentView('home')} />;
   }
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
         <div className="container max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -26,11 +21,7 @@ const Index = () => {
             <ShoppingCart className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold">VendorConnect</span>
           </div>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => setCurrentView('register')}
-          >
+          <Button variant="outline" size="sm" onClick={() => setCurrentView('register')}>
             Join as Vendor
           </Button>
         </div>
@@ -50,19 +41,10 @@ const Index = () => {
             Find verified suppliers, manage your budget, and increase your profits through group buying and smart sourcing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              onClick={() => setCurrentView('register')}
-              className="w-full sm:w-auto"
-            >
+            <Button size="lg" onClick={() => setCurrentView('register')} className="w-full sm:w-auto">
               Start as Vendor
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={() => setCurrentView('suppliers')}
-              className="w-full sm:w-auto"
-            >
+            <Button variant="outline" size="lg" onClick={() => setCurrentView('suppliers')} className="w-full sm:w-auto">
               Browse Suppliers
             </Button>
           </div>
@@ -160,10 +142,7 @@ const Index = () => {
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join thousands of vendors who are already saving money and increasing profits with VendorConnect.
           </p>
-          <Button 
-            size="lg" 
-            onClick={() => setCurrentView('register')}
-          >
+          <Button size="lg" onClick={() => setCurrentView('register')}>
             Get Started Now
           </Button>
         </div>
@@ -172,11 +151,9 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t py-8">
         <div className="container max-w-7xl mx-auto px-4 text-center text-muted-foreground">
-          <p>&copy; 2024 VendorConnect. Empowering street vendors worldwide.</p>
+          <p>© 2025 VendorConnect. Empowering street vendors worldwide.</p>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
