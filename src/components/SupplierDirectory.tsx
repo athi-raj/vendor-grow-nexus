@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Search, MapPin, Star, DollarSign, Users, Truck } from "lucide-react";
+import SupplierDetails from "./SupplierDetails";
 
 interface SupplierDirectoryProps {
   onBack: () => void;
@@ -90,6 +91,17 @@ const SupplierDirectory = ({ onBack }: SupplierDirectoryProps) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [budgetFilter, setBudgetFilter] = useState("");
   const [groupBuyingOnly, setGroupBuyingOnly] = useState(false);
+  const [selectedSupplierId, setSelectedSupplierId] = useState<number | null>(null);
+
+  // Show supplier details if one is selected
+  if (selectedSupplierId) {
+    return (
+      <SupplierDetails 
+        supplierId={selectedSupplierId} 
+        onBack={() => setSelectedSupplierId(null)} 
+      />
+    );
+  }
 
   const filteredSuppliers = mockSuppliers.filter(supplier => {
     const matchesSearch = supplier.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -241,8 +253,19 @@ const SupplierDirectory = ({ onBack }: SupplierDirectoryProps) => {
                   </div>
 
                   <div className="flex flex-col gap-2 lg:ml-6">
-                    <Button className="w-full lg:w-auto">View Details</Button>
-                    <Button variant="outline" className="w-full lg:w-auto">Contact Supplier</Button>
+                    <Button 
+                      className="w-full lg:w-auto"
+                      onClick={() => setSelectedSupplierId(supplier.id)}
+                    >
+                      View Details
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full lg:w-auto"
+                      onClick={() => setSelectedSupplierId(supplier.id)}
+                    >
+                      Contact Supplier
+                    </Button>
                   </div>
                 </div>
               </CardContent>
