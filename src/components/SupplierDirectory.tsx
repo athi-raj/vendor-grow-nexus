@@ -94,7 +94,7 @@ const SupplierDirectory = ({ onBack }: SupplierDirectoryProps) => {
   const filteredSuppliers = mockSuppliers.filter(supplier => {
     const matchesSearch = supplier.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          supplier.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = !selectedCategory || supplier.category === selectedCategory;
+    const matchesCategory = !selectedCategory || selectedCategory === "all" || supplier.category === selectedCategory;
     const matchesGroupBuying = !groupBuyingOnly || supplier.groupBuying;
     
     return matchesSearch && matchesCategory && matchesGroupBuying;
@@ -146,7 +146,7 @@ const SupplierDirectory = ({ onBack }: SupplierDirectoryProps) => {
                     <SelectValue placeholder="All categories" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All categories</SelectItem>
+                    <SelectItem value="all">All categories</SelectItem>
                     <SelectItem value="Food & Beverages">Food & Beverages</SelectItem>
                     <SelectItem value="Clothing & Accessories">Clothing & Accessories</SelectItem>
                     <SelectItem value="Electronics & Gadgets">Electronics & Gadgets</SelectItem>
@@ -163,7 +163,7 @@ const SupplierDirectory = ({ onBack }: SupplierDirectoryProps) => {
                     <SelectValue placeholder="Any budget" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Any budget</SelectItem>
+                    <SelectItem value="any">Any budget</SelectItem>
                     <SelectItem value="under-100">Under $100</SelectItem>
                     <SelectItem value="100-500">$100 - $500</SelectItem>
                     <SelectItem value="500-1000">$500 - $1,000</SelectItem>
