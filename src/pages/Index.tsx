@@ -7,8 +7,17 @@ import VendorRegistration from "@/components/VendorRegistration";
 import SupplierDirectory from "@/components/SupplierDirectory";
 const Index = () => {
   const [currentView, setCurrentView] = useState<'home' | 'register' | 'suppliers'>('home');
+  const [hasRegisteredAsVendor, setHasRegisteredAsVendor] = useState(false);
+  const handleStartAsVendor = () => {
+    if (hasRegisteredAsVendor) {
+      setCurrentView('suppliers');
+    } else {
+      setCurrentView('register');
+    }
+  };
+
   if (currentView === 'register') {
-    return <VendorRegistration onBack={() => setCurrentView('home')} />;
+    return <VendorRegistration onBack={() => setCurrentView('home')} onRegistrationComplete={() => setHasRegisteredAsVendor(true)} />;
   }
   if (currentView === 'suppliers') {
     return <SupplierDirectory onBack={() => setCurrentView('home')} />;
@@ -41,7 +50,7 @@ const Index = () => {
             Find verified suppliers, manage your budget, and increase your profits through group buying and smart sourcing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" onClick={() => setCurrentView('register')} className="w-full sm:w-auto">
+            <Button size="lg" onClick={handleStartAsVendor} className="w-full sm:w-auto">
               Start as Vendor
             </Button>
             <Button variant="outline" size="lg" onClick={() => setCurrentView('suppliers')} className="w-full sm:w-auto">
@@ -142,7 +151,7 @@ const Index = () => {
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join thousands of vendors who are already saving money and increasing profits with VendorConnect.
           </p>
-          <Button size="lg" onClick={() => setCurrentView('register')}>
+          <Button size="lg" onClick={handleStartAsVendor}>
             Get Started Now
           </Button>
         </div>

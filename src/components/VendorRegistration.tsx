@@ -10,9 +10,10 @@ import { useToast } from "@/hooks/use-toast";
 
 interface VendorRegistrationProps {
   onBack: () => void;
+  onRegistrationComplete?: () => void;
 }
 
-const VendorRegistration = ({ onBack }: VendorRegistrationProps) => {
+const VendorRegistration = ({ onBack, onRegistrationComplete }: VendorRegistrationProps) => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     businessName: "",
@@ -32,6 +33,7 @@ const VendorRegistration = ({ onBack }: VendorRegistrationProps) => {
       title: "Registration Successful!",
       description: "Welcome to VendorConnect. You can now browse suppliers and start saving money."
     });
+    onRegistrationComplete?.();
     onBack();
   };
 
