@@ -4,9 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { ShoppingCart, Users, MapPin, DollarSign, TrendingUp, Shield } from "lucide-react";
 import { useState } from "react";
 import VendorRegistration from "@/components/VendorRegistration";
+import SupplierRegistration from "@/components/SupplierRegistration";
 import SupplierDirectory from "@/components/SupplierDirectory";
 const Index = () => {
-  const [currentView, setCurrentView] = useState<'home' | 'register' | 'suppliers'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'register' | 'suppliers' | 'supplier-register'>('home');
   const [hasRegisteredAsVendor, setHasRegisteredAsVendor] = useState(false);
   const handleStartAsVendor = () => {
     if (hasRegisteredAsVendor) {
@@ -22,6 +23,9 @@ const Index = () => {
   if (currentView === 'suppliers') {
     return <SupplierDirectory onBack={() => setCurrentView('home')} />;
   }
+  if (currentView === 'supplier-register') {
+    return <SupplierRegistration onBack={() => setCurrentView('home')} onRegistrationComplete={() => setCurrentView('home')} />;
+  }
   return <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
@@ -30,9 +34,14 @@ const Index = () => {
             <ShoppingCart className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold">VendorConnect</span>
           </div>
-          <Button variant="outline" size="sm" onClick={() => setCurrentView('register')}>
-            Join as Vendor
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={() => setCurrentView('register')}>
+              Join as Vendor
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setCurrentView('supplier-register')}>
+              Join as Supplier
+            </Button>
+          </div>
         </div>
       </header>
 
