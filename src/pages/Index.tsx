@@ -53,7 +53,7 @@ const Index = () => {
             <Button size="lg" onClick={handleStartAsVendor} className="w-full sm:w-auto">
               Start as Vendor
             </Button>
-            <Button variant="outline" size="lg" onClick={() => setCurrentView('suppliers')} className="w-full sm:w-auto">
+            <Button variant="outline" size="lg" onClick={handleStartAsVendor} className="w-full sm:w-auto">
               Browse Suppliers
             </Button>
           </div>
