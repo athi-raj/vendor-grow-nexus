@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Users, MapPin, DollarSign, TrendingUp, Shield } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ShoppingCart, Users, MapPin, DollarSign, TrendingUp, Shield, User } from "lucide-react";
 import { useState } from "react";
 import VendorRegistration from "@/components/VendorRegistration";
 import SupplierRegistration from "@/components/SupplierRegistration";
 import SupplierDirectory from "@/components/SupplierDirectory";
+import VendorDashboard from "@/components/VendorDashboard";
 const Index = () => {
-  const [currentView, setCurrentView] = useState<'home' | 'register' | 'suppliers' | 'supplier-register'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'register' | 'suppliers' | 'supplier-register' | 'dashboard'>('home');
   const [hasRegisteredAsVendor, setHasRegisteredAsVendor] = useState(false);
   const handleStartAsVendor = () => {
     if (hasRegisteredAsVendor) {
@@ -26,6 +28,9 @@ const Index = () => {
   if (currentView === 'supplier-register') {
     return <SupplierRegistration onBack={() => setCurrentView('home')} onRegistrationComplete={() => setCurrentView('home')} />;
   }
+  if (currentView === 'dashboard') {
+    return <VendorDashboard onBack={() => setCurrentView('home')} />;
+  }
   return <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
@@ -34,14 +39,26 @@ const Index = () => {
             <ShoppingCart className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold">VendorConnect</span>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={() => setCurrentView('register')}>
-              Join as Vendor
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => setCurrentView('supplier-register')}>
-              Join as Supplier
-            </Button>
-          </div>
+          {hasRegisteredAsVendor ? (
+            <Avatar 
+              className="cursor-pointer" 
+              onClick={() => setCurrentView('dashboard')}
+            >
+              <AvatarImage src="/placeholder.svg" />
+              <AvatarFallback>
+                <User className="h-4 w-4" />
+              </AvatarFallback>
+            </Avatar>
+          ) : (
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => setCurrentView('register')}>
+                Join as Vendor
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => setCurrentView('supplier-register')}>
+                Join as Supplier
+              </Button>
+            </div>
+          )}
         </div>
       </header>
 
