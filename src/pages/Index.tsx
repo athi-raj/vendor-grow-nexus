@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ShoppingCart, Users, MapPin, DollarSign, TrendingUp, Shield, User } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ShoppingCart, Users, MapPin, DollarSign, TrendingUp, Shield, User, LogOut } from "lucide-react";
 import { useState } from "react";
 import VendorRegistration from "@/components/VendorRegistration";
 import SupplierRegistration from "@/components/SupplierRegistration";
@@ -40,15 +41,26 @@ const Index = () => {
             <span className="text-xl font-bold">VendorConnect</span>
           </div>
           {hasRegisteredAsVendor ? (
-            <Avatar 
-              className="cursor-pointer" 
-              onClick={() => setCurrentView('dashboard')}
-            >
-              <AvatarImage src="/placeholder.svg" />
-              <AvatarFallback>
-                <User className="h-4 w-4" />
-              </AvatarFallback>
-            </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="cursor-pointer">
+                  <AvatarImage src="/placeholder.svg" />
+                  <AvatarFallback>
+                    <User className="h-4 w-4" />
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setCurrentView('dashboard')}>
+                  <User className="mr-2 h-4 w-4" />
+                  Dashboard
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setHasRegisteredAsVendor(false)}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={() => setCurrentView('register')}>
